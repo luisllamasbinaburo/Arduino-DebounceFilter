@@ -44,3 +44,41 @@ DebounceAction OnRising;
 ## Ejemplos
 La librería Debounce Filter incluye los siguientes ejemplos para ilustrar su uso.
 * DebounceFilter: Ejemplo de filtrado y funciones de callback
+
+```c++
+#include "DebounceFilterLib.h"
+
+bool values[] = { 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0};
+size_t valuesLength = sizeof(values) / sizeof(values[0]);
+
+bool getMeasure()
+{
+	size_t static index = 0;
+	index++;
+	return values[index - 1];
+}
+
+
+DebounceFilter debouncer;
+
+void setup() 
+{
+	Serial.begin(9600);
+	debouncer.SetInterval(50);
+	debouncer.OnFalling = []() {Serial.println("OnFalling");};
+
+	for (size_t index = 0; index < valuesLength; index++)
+	{
+		bool raw = getMeasure();
+		debouncer.AddValue(raw);
+
+		delay(10);
+	}
+}
+
+
+void loop() 
+{
+
+}
+```
