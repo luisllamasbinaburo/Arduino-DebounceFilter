@@ -48,9 +48,12 @@ La librería Debounce Filter incluye los siguientes ejemplos para ilustrar su us
 ```c++
 #include "DebounceFilterLib.h"
 
+// Datos para simular lectura de un sensor
 bool values[] = { 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0};
 size_t valuesLength = sizeof(values) / sizeof(values[0]);
 
+
+// Función para simular lectura de un sensor
 bool getMeasure()
 {
 	size_t static index = 0;
@@ -58,7 +61,7 @@ bool getMeasure()
 	return values[index - 1];
 }
 
-
+// Instanciar DebounceFilter
 DebounceFilter debouncer;
 
 void setup() 
